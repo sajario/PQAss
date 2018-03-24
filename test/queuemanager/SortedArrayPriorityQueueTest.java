@@ -55,12 +55,13 @@ public class SortedArrayPriorityQueueTest extends PriorityQueueTest{
         assertEquals(expResult, result);
     }
 
+    
     /**
-     * Test of head method, of class SortedArrayPriorityQueue.
+     * Test of remove method, of class SortedArrayPriorityQueue.
      */
     @Test
-    public void testHead() throws Exception {
-        System.out.println("testHead");
+    public void testRemove() throws Exception {
+        System.out.println("testRemove");
         instance = new SortedArrayPriorityQueue<>(8);
         Person item = new Person("Jill");
         int priority = 1;
@@ -81,11 +82,11 @@ public class SortedArrayPriorityQueueTest extends PriorityQueueTest{
     }
     
     /**
-     * Test of remove method, of class SortedArrayPriorityQueue.
+     * Test of head method, of class SortedArrayPriorityQueue.
      */
     @Test
-    public void testRemove() throws Exception {
-        System.out.println("testRemove");
+    public void testHead() throws Exception {
+        System.out.println("testHead");
         instance = new SortedArrayPriorityQueue<>(8);
         Person item = new Person("Jill");
         int priority = 1;
