@@ -36,7 +36,7 @@ public abstract class PriorityQueueTest {
      */
     @Test
     public void testIsEmpty() {
-        System.out.println("isEmpty");
+        System.out.println("\nisEmpty");
         boolean expResult = true;
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
