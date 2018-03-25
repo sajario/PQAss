@@ -17,6 +17,7 @@ package queuemanager;
     private T item;
     private int priority;
     private LinkedListNode<T> next;
+    private LinkedListNode<T> prev;
     
     public LinkedListNode(T item, int priority) {
         this.item = item;
@@ -32,6 +33,10 @@ package queuemanager;
     public void setNext(LinkedListNode<T> nextNode) {
 	this.next = nextNode;
     }
+    
+    public void setPreviousNode(LinkedListNode<T> prev) {
+		this.prev = prev;
+	}
     public T getItem() {
         return item;
     }
@@ -51,6 +56,9 @@ package queuemanager;
     
     public LinkedListNode<T> getNext() {
         return next;
+    }
+    public LinkedListNode<T> getPrev() {
+        return prev;
     }
 
 }
