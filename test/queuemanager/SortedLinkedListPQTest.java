@@ -5,8 +5,7 @@
  */
 package queuemanager;
 
-import queuemanager.Person;
-import queuemanager.UnsortedArrayPriorityQueue;
+import queuemanager.SortedLinkedListPQ;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,55 +17,73 @@ import static org.junit.Assert.*;
  *
  * @author Sara
  */
-public class UnsortedArrayPriorityQueueTest extends PriorityQueueTest {
+public class SortedLinkedListPQTest {
     
-    public UnsortedArrayPriorityQueueTest() {
+    public SortedLinkedListPQTest() {
     }
-    
-    @Before
-    @Override
-    public void setUp() {
-        instance = new UnsortedArrayPriorityQueue<>(8);
-    }
-    
-    /**
-    * I am using these methods to test the functions but also toString() as that
-    * is what is used for the assertEquals conditions
-    */
-    
-    /**
-     * Test of add method, of class UnsortedArrayPriorityQueue.
+        /**
+     * Test of add method, of class SortedLinkedListPQ.
      */
     @Test
     public void testAdd() throws Exception {
-        System.out.println("\ntestAdd:  Adding Elements to the unsorted array");
-        instance = new UnsortedArrayPriorityQueue<>(8);
-        Person item = new Person("Jill");
+        System.out.println("\ntestAdd:  Adding Elements to the Sorted Linked List");
+        Object item = "Jill";
         int priority = 1;
+        SortedLinkedListPQ instance = new SortedLinkedListPQ();
         instance.add(item, priority);
-        System.out.println("Adding " + item.getName() + " with priority " + priority);
+        System.out.println("Adding " + item.toString() + " with priority " + priority);
         item = new Person("Rizwan");
         priority = 3;
         instance.add(item, priority);
-        System.out.println("Adding " + item.getName() + " with priority " + priority);
+        System.out.println("Adding " + item.toString() + " with priority " + priority);
         item = new Person("Hugh");
         priority = 2;
         instance.add(item, priority);
-        System.out.println("Adding " + item.getName() + " with priority " + priority);
-        String expResult = "[(Jill, 1), (Rizwan, 3), (Hugh, 2)]";
+        System.out.println("Adding " + item.toString() + " with priority " + priority);
+        String expResult = "[(Rizwan, 3), (Hugh, 2), (Jill, 1)]";
         String result = instance.toString();
+        System.out.println("Expected: "+expResult);
+        System.out.println("Actual:   "+result);
+        assertEquals(expResult, result);
+        
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+   
+
+    /**
+     * Test of head method, of class SortedLinkedListPQ.
+     */
+    @Test
+    public void testHead() throws Exception {
+        System.out.println("\ntestHead: Recalling the head of the queue");
+        Object item = new Person("Jill");
+        int priority = 1;
+        SortedLinkedListPQ instance = new SortedLinkedListPQ();
+        instance.add(item, priority);
+        System.out.println("Adding " + item.toString() + " with priority " + priority);
+        item = new Person("Rizwan");
+        priority = 3;
+        instance.add(item, priority);
+        System.out.println("Adding " + item.toString() + " with priority " + priority);
+        item = new Person("Hugh");
+        priority = 2;
+        instance.add(item, priority);
+        System.out.println("Adding " + item.toString() + " with priority " + priority);
+        String expResult = "Rizwan";
+        String result = instance.head().toString();
         System.out.println("Expected: "+expResult);
         System.out.println("Actual:   "+result);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of remove method, of class UnsortedArrayPriorityQueue.
+     * Test of remove method, of class SortedLinkedListPQ.
      */
     @Test
     public void testRemove() throws Exception {
         System.out.println("\ntestRemove: Removing Person with the highest priority");
-        instance = new UnsortedArrayPriorityQueue<>(8);
+        SortedLinkedListPQ instance = new SortedLinkedListPQ();
         Person item = new Person("Jill");
         int priority = 1;
         instance.add(item, priority);
@@ -83,17 +100,17 @@ public class UnsortedArrayPriorityQueueTest extends PriorityQueueTest {
         System.out.println("Starting Array:   "+result);
         instance.remove();
         System.out.println("Removing Rizwan with priority 3");
-        String expResult = "[(Jill, 1), (Hugh, 2)]";
+        String expResult = "[(Hugh, 2), (Jill, 1)]";
         result = instance.toString();
         System.out.println("Expected: "+expResult);
         System.out.println("Actual:   "+result);
         assertEquals(expResult, result);
     }
-    
-     @Test
+
+    @Test
     public void testRemoveEq() throws Exception {
         System.out.println("\ntestRemoveEq: Test where there is equal priorities and will remove the person who was added first");
-        instance = new UnsortedArrayPriorityQueue<>(8);
+        SortedLinkedListPQ instance = new SortedLinkedListPQ();
         Person item = new Person("Jill");
         int priority = 1;
         instance.add(item, priority);
@@ -114,37 +131,27 @@ public class UnsortedArrayPriorityQueueTest extends PriorityQueueTest {
         System.out.println("Starting Array:   "+result);
         instance.remove();
         System.out.println("Removing Rizwan with priority 3");
-        String expResult = "[(Jill, 1), (Hugh, 2), (Karen, 3)]";
+        String expResult = "[(Karen, 3), (Hugh, 2), (Jill, 1)]";
         result = instance.toString();
         System.out.println("Expected: "+expResult);
         System.out.println("Actual:   "+result);
         assertEquals(expResult, result);
     }
-    
     /**
-     * Test of head method, of class UnsortedArrayPriorityQueue.
+     * Test of isEmpty method, of class SortedLinkedListPQ.
      */
     @Test
-    public void testHead() throws Exception {
-        System.out.println("\ntestHead: Recalling the head of the queue");
-        instance = new UnsortedArrayPriorityQueue<>(8);
-        Person item = new Person("Jill");
-        int priority = 1;
+    public void testIsEmpty() throws Exception{
+        System.out.println("isEmpty");
+        SortedLinkedListPQ instance = new SortedLinkedListPQ();
+        System.out.println("add");
+        Object item = "Jill";
+        int priority = 0;
         instance.add(item, priority);
-        System.out.println("Adding " + item.getName() + " with priority " + priority);
-        item = new Person("Rizwan");
-        priority = 3;
-        instance.add(item, priority);
-        System.out.println("Adding " + item.getName() + " with priority " + priority);
-        item = new Person("Hugh");
-        priority = 2;
-        instance.add(item, priority);
-        System.out.println("Adding " + item.getName() + " with priority " + priority);
-        String expResult = "Rizwan";
-        String result = instance.head().getName();
-        System.out.println("Expected: "+expResult);
-        System.out.println("Actual:   "+result);
+        boolean expResult = false;
+        boolean result = instance.isEmpty();
         assertEquals(expResult, result);
     }
+
     
 }
