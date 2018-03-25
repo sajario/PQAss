@@ -5,6 +5,8 @@
  */
 package queuemanager;
 
+import queuemanager.Person;
+import queuemanager.PriorityQueue;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

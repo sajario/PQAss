@@ -9,26 +9,27 @@ import java.util.LinkedList;
  *
  * @author Sara
  */
-public class OrderedLinkListPriorityQueueTestArea<T> implements PriorityQueue<T> {
+public class SortedLinkedListPQ<T> implements PriorityQueue<T> {
 
-    private LinkedListNodeTestArea<T> head;
-    private LinkedListNodeTestArea<T> newNode;
+    private LinkedListNode<T> head;
+    private LinkedListNode<T> newNode;
     
-    public OrderedLinkListPriorityQueueTestArea() {
-        head=null;
+    public SortedLinkedListPQ() {
+        head = null;
+        newNode = null;
     }
     
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
     
-        newNode = new LinkedListNodeTestArea<>(item, priority);
+        newNode = new LinkedListNode<>(item, priority);
         /*Check to see if the head item is empty or the head priority and the new item priority should be swapped*/
 	if (this.head == null || this.head.getPriority() < newNode.getPriority()) {
 			newNode.setNext(this.head);
 			this.head = newNode;
 			return;
 		}
-        LinkedListNodeTestArea<T> pointer = this.head;
+        LinkedListNode<T> pointer = this.head;
                 /*Uses a pointer to traverse the linked list and checks whether 
                 or not the next node is greater than the pointer*/
                 
@@ -46,7 +47,7 @@ public class OrderedLinkListPriorityQueueTestArea<T> implements PriorityQueue<T>
 
     @Override
     public T head() throws QueueUnderflowException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ((LinkedListNode<T>) head).getItem();
     }
 
     
@@ -67,7 +68,7 @@ public class OrderedLinkListPriorityQueueTestArea<T> implements PriorityQueue<T>
     @Override
     public String toString() {
             String result = "[";
-            LinkedListNodeTestArea<T> pointer = this.head;
+            LinkedListNode<T> pointer = this.head;
             while (pointer.getNext() != null) {   
                     result += "("+pointer.getItem() +", "+ pointer.getPriority()+"), " ;
                     pointer = pointer.getNext(); 
