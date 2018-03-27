@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Sara
  */
-public class SortedLinkedListPQTest {
+public class UnsortedLinkedListPQTest {
     
-    public SortedLinkedListPQTest() {
+    public UnsortedLinkedListPQTest() {
     }
         /**
      * Test of add method, of class SortedLinkedListPQ.
@@ -29,7 +29,7 @@ public class SortedLinkedListPQTest {
         System.out.println("\ntestAdd:  Adding Elements to the Sorted Linked List");
         Object item = "Jill";
         int priority = 1;
-        SortedLinkedListPQ instance = new SortedLinkedListPQ();
+        UnsortedLinkedListPQ instance = new UnsortedLinkedListPQ();
         instance.add(item, priority);
         System.out.println("Adding " + item.toString() + " with priority " + priority);
         item = new Person("Rizwan");
@@ -40,7 +40,7 @@ public class SortedLinkedListPQTest {
         priority = 2;
         instance.add(item, priority);
         System.out.println("Adding " + item.toString() + " with priority " + priority);
-        String expResult = "[(Rizwan, 3), (Hugh, 2), (Jill, 1)]";
+        String expResult = "[(Hugh, 2), (Rizwan, 3), (Jill, 1)]";
         String result = instance.toString();
         System.out.println("Expected: "+expResult);
         System.out.println("Actual:   "+result);
@@ -59,8 +59,8 @@ public class SortedLinkedListPQTest {
         System.out.println("\ntestHead: Recalling the head of the queue");
         Object item = new Person("Jill");
         int priority = 1;
-        SortedLinkedListPQ instance = new SortedLinkedListPQ();
-        instance.add(item, priority);
+        UnsortedLinkedListPQ instance = new UnsortedLinkedListPQ();
+        instance.add(item, 1);
         System.out.println("Adding " + item.toString() + " with priority " + priority);
         item = new Person("Rizwan");
         priority = 3;
@@ -83,7 +83,7 @@ public class SortedLinkedListPQTest {
     @Test
     public void testRemove() throws Exception {
         System.out.println("\ntestRemove: Removing Person with the highest priority");
-        SortedLinkedListPQ instance = new SortedLinkedListPQ();
+        UnsortedLinkedListPQ instance = new UnsortedLinkedListPQ();
         Person item = new Person("Jill");
         int priority = 1;
         instance.add(item, priority);
@@ -105,18 +105,24 @@ public class SortedLinkedListPQTest {
         System.out.println("Expected: "+expResult);
         System.out.println("Actual:   "+result);
         assertEquals(expResult, result);
+        instance.remove();
+        System.out.println("Removing Hugh with priority 2");
+        expResult = "[(Jill, 1)]";
+        result = instance.toString();
+        System.out.println("Expected: "+expResult);
+        System.out.println("Actual:   "+result);
     }
 
     @Test
     public void testRemoveEq() throws Exception {
         System.out.println("\ntestRemoveEq: Test where there is equal priorities and will remove the person who was added first");
-        SortedLinkedListPQ instance = new SortedLinkedListPQ();
+        UnsortedLinkedListPQ instance = new UnsortedLinkedListPQ();
         Person item = new Person("Jill");
-        int priority = 1;
+        int priority = 2;
         instance.add(item, priority);
         System.out.println("Adding " + item.getName() + " with priority " + priority);
         item = new Person("Rizwan");
-        priority = 3;
+        priority = 1;
         instance.add(item, priority);
         System.out.println("Adding " + item.getName() + " with priority " + priority);
         item = new Person("Hugh");
@@ -130,26 +136,40 @@ public class SortedLinkedListPQTest {
         String result = instance.toString();
         System.out.println("Starting Linked List:   "+result);
         instance.remove();
-        System.out.println("Removing Rizwan with priority 3");
-        String expResult = "[(Karen, 3), (Hugh, 2), (Jill, 1)]";
+        System.out.println("Removing Karen with priority 3");
+        String expResult = "[(Hugh, 2), (Rizwan, 1), (Jill, 2)]";
         result = instance.toString();
         System.out.println("Expected: "+expResult);
         System.out.println("Actual:   "+result);
         assertEquals(expResult, result);
+        
+        instance.remove();
+        System.out.println("Removing Jill with priority 2");
+        expResult = "[(Hugh, 2), (Rizwan, 1)]";
+        result = instance.toString();
+        System.out.println("Expected: "+expResult);
+        System.out.println("Actual:   "+result);
     }
     /**
      * Test of isEmpty method, of class SortedLinkedListPQ.
      */
     @Test
     public void testIsEmpty() throws Exception{
-        System.out.println("isEmpty");
-        SortedLinkedListPQ instance = new SortedLinkedListPQ();
-        System.out.println("add");
+        System.out.println("\nisEmpty");
+        
+        UnsortedLinkedListPQ instance = new UnsortedLinkedListPQ();
+        System.out.println("Empty List");
+        boolean expResult = true;
+        boolean result = instance.isEmpty();
+        assertEquals(expResult, result);
+        
         Object item = "Jill";
         int priority = 0;
         instance.add(item, priority);
-        boolean expResult = false;
-        boolean result = instance.isEmpty();
+        System.out.println(instance.toString());
+        System.out.println("NOT Empty List");
+        expResult = false;
+        result = instance.isEmpty();
         assertEquals(expResult, result);
     }
 

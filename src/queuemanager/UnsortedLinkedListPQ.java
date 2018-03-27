@@ -28,8 +28,8 @@ public class UnsortedLinkedListPQ <T> implements PriorityQueue<T> {
             this.head = new LinkedListNode<>(item, priority);
         } else {
             newNode = new LinkedListNode<>(item, priority);
-            this.head.setPrev(newNode);
             newNode.setNext(this.head);
+            this.head.setPrev(newNode);
             this.head = newNode;           
         }
 
@@ -70,16 +70,21 @@ public class UnsortedLinkedListPQ <T> implements PriorityQueue<T> {
         /*Traverses linked list recursively and finds head of the queue*/
         newNode = findMax(pointer,pointer.getNext());
        
-        if (newNode == pointer){head = null;}          
+        if (newNode.getPrev() == null && newNode.getNext() == null){head = null;}          
         if (newNode.getPrev() != null && newNode.getNext() != null){
-          /*Sets the max node's previous node's next node to the max node's next node property in order to close the chain forward */
-          newNode.getPrev().setNext(newNode.getNext());
-          /*Sets the max node's next node's previous node to the max node's previous node property in order to close the chain backwards*/
-          newNode.getNext().setPrev(newNode.getPrev());
+            /*Sets the max node's previous node's next node to the max node's next node property in order to close the chain forward */
+            newNode.getPrev().setNext(newNode.getNext());
+            /*Sets the max node's next node's previous node to the max node's previous node property in order to close the chain backwards*/
+            newNode.getNext().setPrev(newNode.getPrev());
         }
         if (newNode.getPrev() != null && newNode.getNext() == null){
-          /*Sets the max node's previous node's next node to the max node's next node property in order to close the chain forward */
-          newNode.getPrev().setNext(newNode.getNext());
+            /*Sets the max node's previous node's next node to the max node's next node property in order to close the chain forward */
+            newNode.getPrev().setNext(newNode.getNext());
+        }
+        if (newNode.getPrev() == null && newNode.getNext() != null){
+            /*In this instance it can only be the head so the head so the new head will be the next node and its previous property must be null*/
+            head =newNode.getNext();
+            head.setPrev(null);
         }
           
           
@@ -111,7 +116,7 @@ public class UnsortedLinkedListPQ <T> implements PriorityQueue<T> {
                     printLL(node.getNext());
                    return rPrint;
                 } else {
-                    rPrint += (",")+ printLL( node.getNext());
+                    rPrint += (", ")+ printLL( node.getNext());
                    return rPrint;
                 }
         }         
