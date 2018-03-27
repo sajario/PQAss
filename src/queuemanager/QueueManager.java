@@ -44,6 +44,9 @@ public class QueueManager {
                 System.out.println("Using an Unsorted Linked List.");
                 break;
             case "h":
+                q = new HeapPQ<>(15);
+                System.out.println("Using an Unsorted Linked List.");
+                break;
             default:
                 q = new SortedArrayPriorityQueue<>(8);
                 System.out.println("Invalid choice, using sorted array.");

@@ -22,11 +22,11 @@ public class UnsortedLinkedListPQTest {
     public UnsortedLinkedListPQTest() {
     }
         /**
-     * Test of add method, of class SortedLinkedListPQ.
+     * Test of add method, of class UnsortedLinkedListPQ.
      */
     @Test
     public void testAdd() throws Exception {
-        System.out.println("\ntestAdd:  Adding Elements to the Sorted Linked List");
+        System.out.println("\ntestAdd:  Adding Elements to the Linked List");
         Object item = "Jill";
         int priority = 1;
         UnsortedLinkedListPQ instance = new UnsortedLinkedListPQ();
@@ -52,7 +52,7 @@ public class UnsortedLinkedListPQTest {
    
 
     /**
-     * Test of head method, of class SortedLinkedListPQ.
+     * Test of head method, of class UnsortedLinkedListPQ.
      */
     @Test
     public void testHead() throws Exception {
@@ -78,7 +78,7 @@ public class UnsortedLinkedListPQTest {
     }
 
     /**
-     * Test of remove method, of class SortedLinkedListPQ.
+     * Test of remove method, of class UnsortedLinkedListPQ.
      */
     @Test
     public void testRemove() throws Exception {
@@ -151,7 +151,7 @@ public class UnsortedLinkedListPQTest {
         System.out.println("Actual:   "+result);
     }
     /**
-     * Test of isEmpty method, of class SortedLinkedListPQ.
+     * Test of isEmpty method, of class UnsortedLinkedListPQ.
      */
     @Test
     public void testIsEmpty() throws Exception{
