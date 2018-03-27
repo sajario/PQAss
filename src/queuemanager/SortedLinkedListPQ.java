@@ -30,23 +30,26 @@ public class SortedLinkedListPQ<T> implements PriorityQueue<T> {
 			return;
 		}
         LinkedListNode<T> pointer = this.head;
-                /*Uses a pointer to traverse the linked list and checks whether 
-                or not the next node is greater than the pointer*/
-                
-		while (pointer != null && pointer.getNext() != null && pointer.getNext().getPriority() >= newNode.getPriority()) {
-			pointer = pointer.getNext();
-		}
-                /*when the relevant pointer has been found to make the 
-                replacement you change the new nodes next property and 
-                then the original node with the new node as next property*/
-                
-		newNode.setNext(pointer.getNext());
-		pointer.setNext(newNode);	
+            /*Uses a pointer to traverse the linked list and checks whether 
+            or not the next node is greater than the pointer*/
+
+            while (pointer != null && pointer.getNext() != null && pointer.getNext().getPriority() >= newNode.getPriority()) {
+                    pointer = pointer.getNext();
+            }
+            /*when the relevant pointer has been found to make the 
+            replacement you change the new nodes next property and 
+            then the original node with the new node as next property*/
+
+            newNode.setNext(pointer.getNext());
+            pointer.setNext(newNode);	
         
     }
 
     @Override
     public T head() throws QueueUnderflowException {
+        if (isEmpty()){
+            throw new QueueUnderflowException();
+        }
         return ((LinkedListNode<T>) head).getItem();
     }
 
@@ -67,6 +70,9 @@ public class SortedLinkedListPQ<T> implements PriorityQueue<T> {
 
     @Override
     public String toString() {
+        if (isEmpty()) {
+            return "The queue is empty";
+        } else {
             String result = "[";
             LinkedListNode<T> pointer = this.head;
             while (pointer.getNext() != null) {   
@@ -78,5 +84,6 @@ public class SortedLinkedListPQ<T> implements PriorityQueue<T> {
                 }
             result += "]";
             return result;
-    }
+        } 
+    }  
 }
