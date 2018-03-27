@@ -25,82 +25,64 @@ public class UnsortedLinkedListPQ <T> implements PriorityQueue<T> {
     public void add(T item, int priority) throws QueueOverflowException {
         /*Simply adds to the head item without sort*/
         if (isEmpty()) {
-            newNode = new LinkedListNode<>(item, priority);
-            newNode.setNext(this.head);
-            this.head = newNode;
+            this.head = new LinkedListNode<>(item, priority);
         } else {
             newNode = new LinkedListNode<>(item, priority);
+            this.head.setPrev(newNode);
             newNode.setNext(this.head);
-            this.head = newNode;
-            this.head.getNext().setPreviousNode(head);
+            this.head = newNode;           
         }
 
     }
     
-//     private int maxRecursion(){
-//        if (head == null)
-//                return 0;
-//        return maxRecursion(head, head.getPriority());
-//
-//        }
-//     
-//        private int maxRecursion(LinkedListNode<T> node, int max)
-//
-//        {
-//            if (node == null){
-//                return max;
-//            }
-//            if (node.getPriority() > max){
-//                max = node.getPriority();
-//            }
-//        return maxRecursion(node.getNext(), max);
-//        }
-
     
     @Override
     public T head() throws QueueUnderflowException {
-//        System.out.println("Max: "+maxRecursion());
-        int size = 0;
-        int i; 
-        prioritymax = 0;
         if (isEmpty()){
             throw new QueueUnderflowException();
         }
         pointer = head;
-        /*Traverses linked list and finds and retains max value with loop*/
-        while (pointer != null) {   
-            if (prioritymax <= pointer.getPriority()) {
-                prioritymax = pointer.getPriority();
-                newNode = pointer;
-            }
-            size++; 
-            pointer = pointer.getNext(); 
-            }
-          return newNode.getItem();
+        /*Traverses linked list recursively and finds head of the queue*/
+        newNode = findMax(pointer,pointer.getNext());
+        return newNode.getItem();
     }    
 
+    public LinkedListNode<T> findMax(LinkedListNode<T> first, LinkedListNode<T> second) {
+    if (first == null || second == null){
+        return first;
+    } else {
+        /*Checks the priority of first and second node, 
+        *if the first node is greater then send first node and second.getnext back into the function
+        *if the second node is greater then send second node and second.getnext back into the function
+        */
+        return findMax(first.getPriority() > second.getPriority() ? first : second, second.getNext());
+    }
+    
+}
+    
     @Override
     public void remove() throws QueueUnderflowException {
-       int size = 0;
-        int i; 
-        prioritymax = 0;
-        pointer = head;
+
         if (isEmpty()){
             throw new QueueUnderflowException();
         }
-        /*Traverses linked list and finds and retains max value with loop*/
-        while (pointer != null) {   
-
-            if (prioritymax <= pointer.getPriority()) {
-                prioritymax = pointer.getPriority();
-                newNode = pointer;
-            }
-            size++; 
-            pointer = pointer.getNext(); 
-            }
-        
-          newNode.getPrev().setNext(newNode.getNext());
+        pointer = head;
+        /*Traverses linked list recursively and finds head of the queue*/
+        newNode = findMax(pointer,pointer.getNext());
        
+        if (newNode == pointer){head = null;}          
+        if (newNode.getPrev() != null && newNode.getNext() != null){
+          /*Sets the max node's previous node's next node to the max node's next node property in order to close the chain forward */
+          newNode.getPrev().setNext(newNode.getNext());
+          /*Sets the max node's next node's previous node to the max node's previous node property in order to close the chain backwards*/
+          newNode.getNext().setPrev(newNode.getPrev());
+        }
+        if (newNode.getPrev() != null && newNode.getNext() == null){
+          /*Sets the max node's previous node's next node to the max node's next node property in order to close the chain forward */
+          newNode.getPrev().setNext(newNode.getNext());
+        }
+          
+          
           
     }
 
@@ -109,22 +91,31 @@ public class UnsortedLinkedListPQ <T> implements PriorityQueue<T> {
         return head == null;
     }
     
-    @Override
     public String toString() {
+//    public void toString(LinkedListNode<T> node) {
         if (isEmpty()) {
             return "The queue is empty";
         } else {
             String result = "[";
-            LinkedListNode<T> pointer = this.head;
-            while (pointer.getNext() != null) {   
-                    result += "("+pointer.getItem() +", "+ pointer.getPriority()+"), " ;
-                    pointer = pointer.getNext(); 
-            }
-            if (pointer.getNext() == null){
-                    result += "("+pointer.getItem() +", "+ pointer.getPriority()+")" ;
-                }
+            result += printLL(head);
             result += "]";
             return result;
+        }
     }
+    
+    public String printLL(LinkedListNode<T> node) {
+        /*Recursion Version of Printing Linked List*/
+        if (node != null) {
+            String rPrint = ("("+node.getItem() +", "+ node.getPriority()+")");
+            if (node.getNext()==null) {
+                    printLL(node.getNext());
+                   return rPrint;
+                } else {
+                    rPrint += (",")+ printLL( node.getNext());
+                   return rPrint;
+                }
+        }         
+        return "";
     }
+    
 }

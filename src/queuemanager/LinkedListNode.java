@@ -23,18 +23,20 @@ package queuemanager;
         this.item = item;
         this.priority=priority;
         this.next = null;
+        this.prev = null;
     }
     
     public LinkedListNode() {
-        item = null;
-        next = null;
+        this.item = null;
+        this.next = null;
+        this.prev = null;
     }
     
     public void setNext(LinkedListNode<T> nextNode) {
 	this.next = nextNode;
     }
     
-    public void setPreviousNode(LinkedListNode<T> prev) {
+    public void setPrev(LinkedListNode<T> prev) {
 		this.prev = prev;
 	}
     public T getItem() {
